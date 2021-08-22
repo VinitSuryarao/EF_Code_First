@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ExchangeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ExchangeModelStoreContainer">
+    <EntitySet Name="tb_Exchange" EntityType="ExchangeModel.Store.tb_Exchange" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tb_ExchangeAccountMappping" EntityType="ExchangeModel.Store.tb_ExchangeAccountMappping" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="tb_Exchangetb_ExchangeAccountMappping" Association="ExchangeModel.Store.tb_Exchangetb_ExchangeAccountMappping">
+      <End Role="tb_Exchange" EntitySet="tb_Exchange" />
+      <End Role="tb_ExchangeAccountMappping" EntitySet="tb_ExchangeAccountMappping" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tb_Exchange">
+    <Key>
+      <PropertyRef Name="n_ExNo" />
+    </Key>
+    <Property Name="n_ExNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="s_ExCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="s_ExName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tb_ExchangeAccountMappping">
+    <Key>
+      <PropertyRef Name="n_ExAccNo" />
+    </Key>
+    <Property Name="n_ExAccNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="s_ControlAcc" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dn_ExNo" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="tb_Exchangetb_ExchangeAccountMappping">
+    <End Role="tb_Exchange" Type="ExchangeModel.Store.tb_Exchange" Multiplicity="1" />
+    <End Role="tb_ExchangeAccountMappping" Type="ExchangeModel.Store.tb_ExchangeAccountMappping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_Exchange">
+        <PropertyRef Name="n_ExNo" />
+      </Principal>
+      <Dependent Role="tb_ExchangeAccountMappping">
+        <PropertyRef Name="dn_ExNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ExchangeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ExchangeModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_Exchange" EntityType="ExchangeModel.tb_Exchange" />
+          <EntitySet Name="tb_ExchangeAccountMappping" EntityType="ExchangeModel.tb_ExchangeAccountMappping" />
+          <AssociationSet Name="tb_Exchangetb_ExchangeAccountMappping" Association="ExchangeModel.tb_Exchangetb_ExchangeAccountMappping">
+            <End Role="tb_Exchange" EntitySet="tb_Exchange" />
+            <End Role="tb_ExchangeAccountMappping" EntitySet="tb_ExchangeAccountMappping" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tb_Exchange">
+          <Key>
+            <PropertyRef Name="n_ExNo" />
+          </Key>
+          <Property Name="n_ExNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="s_ExCode" Type="String" Nullable="false" />
+          <Property Name="s_ExName" Type="String" Nullable="false" />
+          <NavigationProperty Name="tb_ExchangeAccountMappping" Relationship="ExchangeModel.tb_Exchangetb_ExchangeAccountMappping" FromRole="tb_Exchange" ToRole="tb_ExchangeAccountMappping" />
+        </EntityType>
+        <EntityType Name="tb_ExchangeAccountMappping">
+          <Key>
+            <PropertyRef Name="n_ExAccNo" />
+          </Key>
+          <Property Name="n_ExAccNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="s_ControlAcc" Type="String" Nullable="false" />
+          <NavigationProperty Name="tb_Exchange" Relationship="ExchangeModel.tb_Exchangetb_ExchangeAccountMappping" FromRole="tb_ExchangeAccountMappping" ToRole="tb_Exchange" />
+          <Property Name="dn_ExNo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="tb_Exchangetb_ExchangeAccountMappping">
+          <End Type="ExchangeModel.tb_Exchange" Role="tb_Exchange" Multiplicity="1" />
+          <End Type="ExchangeModel.tb_ExchangeAccountMappping" Role="tb_ExchangeAccountMappping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Exchange">
+              <PropertyRef Name="n_ExNo" />
+            </Principal>
+            <Dependent Role="tb_ExchangeAccountMappping">
+              <PropertyRef Name="dn_ExNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ExchangeModelStoreContainer" CdmEntityContainer="ExchangeModelContainer">
+    <EntitySetMapping Name="tb_Exchange">
+      <EntityTypeMapping TypeName="IsTypeOf(ExchangeModel.tb_Exchange)">
+        <MappingFragment StoreEntitySet="tb_Exchange">
+          <ScalarProperty Name="n_ExNo" ColumnName="n_ExNo" />
+          <ScalarProperty Name="s_ExCode" ColumnName="s_ExCode" />
+          <ScalarProperty Name="s_ExName" ColumnName="s_ExName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_ExchangeAccountMappping">
+      <EntityTypeMapping TypeName="IsTypeOf(ExchangeModel.tb_ExchangeAccountMappping)">
+        <MappingFragment StoreEntitySet="tb_ExchangeAccountMappping">
+          <ScalarProperty Name="n_ExAccNo" ColumnName="n_ExAccNo" />
+          <ScalarProperty Name="s_ControlAcc" ColumnName="s_ControlAcc" />
+          <ScalarProperty Name="dn_ExNo" ColumnName="dn_ExNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
